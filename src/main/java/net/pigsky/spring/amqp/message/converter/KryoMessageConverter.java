@@ -56,6 +56,8 @@ public class KryoMessageConverter extends AbstractMessageConverter {
             if (properties.getContentType() != null && properties.getContentType().contains("x-kryo")) {
                 Kryo kryo = kryoFactory.create();
                 content = kryo.readClassAndObject(new ByteBufferInput(message.getBody()));
+            } else {
+                throw new MessageConversionException("Converter not applicable to this message");
             }
         }
         return content;
